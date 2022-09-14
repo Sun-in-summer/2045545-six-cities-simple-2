@@ -1,4 +1,4 @@
-import { CliCommandInterface } from "../cli-command/cli-command.interface.js";
+import { CliCommandInterface } from '../cli-command/cli-command.interface.js';
 
 type ParsedCommand = {
   [key: string] : string[];
@@ -20,14 +20,14 @@ export default class CLIApplication{
         acc[command].push(item);
       }
       return acc;
-    }, parsedCommand)
+    }, parsedCommand);
   }
 
   public registerCommands(commandList: CliCommandInterface[]): void {
     commandList.reduce((acc, command) => {
       const cliCommand = command;
       acc[cliCommand.name] = cliCommand;
-      return acc
+      return acc;
     }, this.commands);
   }
 

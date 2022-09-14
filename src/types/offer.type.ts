@@ -11,12 +11,12 @@ export type Offer = {
   postDate: Date;
   city: string;
   previewPath: string;
-  imagesPaths: string[];
+  images: string[];
   premium: boolean;
   rating: number;
   type: OfferType;
   roomQuantity: number;
-  GuestsQuantity: number;
+  guestsQuantity: number;
   price: number;
   accommodations: Accomodation[];
   user: User;

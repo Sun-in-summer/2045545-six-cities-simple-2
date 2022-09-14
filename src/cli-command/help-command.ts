@@ -1,4 +1,4 @@
-import { CliCommandInterface } from "./cli-command.interface.js";
+import { CliCommandInterface } from './cli-command.interface.js';
 
 export default class HelpCommand implements CliCommandInterface {
   public readonly name = '--help';
@@ -12,6 +12,6 @@ export default class HelpCommand implements CliCommandInterface {
             --help:                      # печатает этот текст
             --import <path>:             # импортирует данные из TSV
             --generator <n> <path> <url> # генерирует произвольное количество тестовых данных
-        `)
+        `);
   }
 }
