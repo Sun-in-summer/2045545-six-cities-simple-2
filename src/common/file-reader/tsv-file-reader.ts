@@ -37,7 +37,7 @@ export default class TSVFileReader implements FileReaderInterface {
         guestsQuantity,
         price,
         accommodations,
-        name,
+        userName,
         email,
         avatarPath,
         isPro,
@@ -59,7 +59,7 @@ export default class TSVFileReader implements FileReaderInterface {
         accommodations: accommodations.split(';')
           .map((name)=> ({name})),
         user: {
-          name,
+          userName,
           email,
           avatarPath,
           isPro: Boolean(isPro)},

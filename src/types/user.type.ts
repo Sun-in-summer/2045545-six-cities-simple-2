@@ -1,6 +1,6 @@
 
 export type User ={
-  name: string;
+  userName: string;
   email:string;
   avatarPath: string;
   isPro: boolean;
