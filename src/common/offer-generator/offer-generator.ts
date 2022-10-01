@@ -43,7 +43,7 @@ export default class OfferGenerator implements OfferGeneratorInterface {
     const description = getRandomItem<string>(this.mockData.descriptions);
     const city =  getRandomItem<string>(this.mockData.cities);
     const previewPath = getRandomItem<string>(this.mockData.previewPaths);
-    const images = getRandomItems<string>(this.mockData.descriptions).join(';');
+    const images = getRandomItems<string>(this.mockData.images).join(';');
     const type = getRandomItem<OfferType>(this.mockData.types);
     const accommodations = getRandomItems<Accomodation>(this.mockData.accommodations).join(';');
     const userName = getRandomItem<string>(this.mockData.userNames);
