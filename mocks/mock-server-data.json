@@ -1,0 +1,96 @@
+{
+  "api": {
+    "titles": [
+      "Nice, cozy, warm big bed apartment",
+      "Loft Studio in the Central Area",
+      "Hotel d'AmiensOpens in new window",
+      "Hôtel GérandoOpens in new window",
+      "Manolita ParisOpens in new window"
+    ],
+    "descriptions": [
+      "Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature.",
+      "Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.",
+      "Hotel d'Amiens is located in Paris between Gare du Nord and Gare de l’Est Train Stations. It offers rooms with a bath or a shower, satellite TV and free WiFi.",
+      "Hotel Gérando is located in the Montmartre area in Paris. The hotel features a 24-hour reception, a luggage storage and free WiFi.",
+      "Located 0.9 mi from the Palais des Congrès, this hotel offers soundproofed and air-conditioned rooms with free Wi-Fi."
+    ],
+    "cities" : [
+      "Paris",
+      "Cologne",
+      "Brussels",
+      "Amsterdam",
+      "Hamburg",
+      "Dusseldorf"
+    ],
+    "previewPaths" : ["https://previews.123rf.com/images/taiga/taiga1601/taiga160100014/50960925-new-york-city-skyline-with-urban-skyscrapers-at-gentle-sunrise,-famous-manhattan-view,-usa.jpg",
+    "https://previews.123rf.com/images/mdmworks/mdmworks1406/mdmworks140600001/29249692-view-of-cape-town-at-dawn,-south-africa.jpg",
+    "https://img.freepik.com/free-photo/empty-floor-front-of-modern-building_1127-3154.jpg?w=740&t=st=1664125932~exp=1664126532~hmac=f08b964fdb4b18cbcad46d4ba89a0b80b9c581831d6d71b8c69898b995a8cb0e",
+    "https://img.freepik.com/free-photo/big-city_1127-3102.jpg?w=740&t=st=1664125945~exp=1664126545~hmac=77eb5172d7d333e7e1f18f94fc1583e85e9a311d9d7eca1443db78282ecb794e"
+  ],
+    "images" : [
+      "https://img.freepik.com/free-photo/cozy-studio-apartment-with-bedroom-and-living-space_1262-12323.jpg?w=740&t=st=1664126039~exp=1664126639~hmac=fcd49ffb08c28b29cefc63eb807fb13c285da1c1556d1c28944ee7f7d032becd",
+      "https://img.freepik.com/free-photo/type-entertainment-complex-the-popular-resort-with-pools-and-water-parks-in-turkey-with-more-than-5-million-visitors-a-year-amara-dolce-vita-luxury-hotel-resort-tekirova-kemer_146671-18728.jpg?w=740&t=st=1664126040~exp=1664126640~hmac=38072d85b9f4589cb1a360e92b7b84b0528591d8d26d08798ee023d22936fc82",
+      "https://img.freepik.com/free-photo/luxury-classic-modern-bedroom-suite-in-hotel_105762-1787.jpg?w=740&t=st=1664126042~exp=1664126642~hmac=c4351120e1ba91326da0ef1418415b0bd7d3e206780873a4abea3d4f90a96709",
+      "https://img.freepik.com/free-photo/shallow-shot-of-a-modern-sink-beside-the-bottle-in-the-bathroom_181624-37589.jpg?w=740&t=st=1664126045~exp=1664126645~hmac=d7c32966fdc3c5167478cf3135cf2f4c79d93d6075c1cdb573bb189c5bcc36e4",
+      "https://img.freepik.com/premium-photo/home-or-house-exterior-design-showing-tropical-pool-villa-with-sun-bed_41487-564.jpg?w=740",
+      "https://img.freepik.com/free-photo/breakfast-on-a-wooden-table-with-a-natural-view_53876-139869.jpg?w=740&t=st=1664126049~exp=1664126649~hmac=ba3a24ac7540aaec8f6e73455141c187c929bc386067f105db083b9a92f32935",
+      "https://img.freepik.com/free-photo/modern-luxury-hotel-and-office-reception-and-lounge-with-meeting-room_105762-1772.jpg?w=740&t=st=1664126052~exp=1664126652~hmac=b61c0fe09e3f7183179dc8bc4796f048096d9842515648bc4c7549e0d2d36736",
+      "https://img.freepik.com/premium-photo/3d-rendering-modern-luxury-bedroom-interior_674881-1308.jpg?w=740",
+      "https://img.freepik.com/premium-photo/dark-modern-stylish-male-apartment-interior-with-lighting-decorative-walls-fireplace-dressing-area-and-huge-window_267786-302.jpg?w=740",
+      "https://img.freepik.com/free-photo/beautiful-luxury-outdoor-swimming-pool-in-hotel-and-resort_74190-7433.jpg?w=740&t=st=1664126063~exp=1664126663~hmac=7047d6c8e7e0264afe2ccb53c20c7c38ff335fe1e0aee68d8f652380c127e438",
+      "https://img.freepik.com/free-photo/swimming-pool-and-beach-of-luxury-hotel-and-outdoor-pools-and-a-spa-amara-dolce-vita-luxury-hotel-resort-tekirova-kemer-turkey_146671-18751.jpg?w=740&t=st=1664126066~exp=1664126666~hmac=1a15b77fd6732554e5941df5d4f780c1231db5bcbfe3d4eff31b3b3071ca85a8",
+      "https://img.freepik.com/free-photo/swimming-pool-and-beach-of-luxury-hotel-type-entertainment-complex-amara-dolce-vita-luxury-hotel-resort-tekirova-kemer-turkey_146671-18726.jpg?w=740&t=st=1664126068~exp=1664126668~hmac=f2e891e307961a69cde8b0f8680c3c12c358cec2f3d0e230cc1dd1c0c20b32c6",
+      "https://img.freepik.com/free-photo/hotel-in-nevada-usa_1268-14393.jpg?w=740&t=st=1664126071~exp=1664126671~hmac=6aa973dfc51bf517ae3b19fa4b0340443983f51c2f6d1a88bca4756bddc46a20"
+    ],
+    "types":[
+      "Apartment",
+      "House",
+      "Room",
+      "Hotel"
+    ],
+    "accommodations": [
+      "Breakfast",
+      "AirConditioning",
+      "LaptopFriendlyWorkspace",
+      "BabySeat",
+      "Washer",
+      "Towels",
+      "Fridge"
+    ],
+    "userNames" : [
+      "Иван",
+      "Олег",
+      "Пьер",
+      "Роланд",
+      "Холи",
+      "Джек",
+      "Антон",
+      "Борис",
+      "Рокки",
+      "Джон"
+    ],
+    "emails" : [
+      "snow@pisem.local",
+      "president@dka.local",
+      "fish@big.local",
+      "test@pisem.local",
+      "freedom@pisem.local",
+      "rolan@pochta.local",
+      "author@mir.local",
+      "test@lost.loca",
+      "kujo-fan@story.local"
+    ],
+    "avatarPaths" : [
+      "user.jpg",
+      "photo.jpg",
+      "awesome-avatar.jpg",
+      "roland.jpg",
+      "smit.jpg",
+      "coffee.jpg"
+    ],
+    "locations": [
+      "48.85661 2.351499",
+      "50.938361 6.959974"
+    ]
+  }
+}

@@ -12,7 +12,7 @@ export type Offer = {
   city: string;
   previewPath: string;
   images: string[];
-  premium: boolean;
+  isPremium: boolean;
   rating: number;
   type: OfferType;
   roomQuantity: number;
