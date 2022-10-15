@@ -47,4 +47,4 @@ export const EMAIL_REG_EXP = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,5}$/;
 
 export const AVATAR_PATH_REG_EXP = /^.+(?:.jpg)|.+(?:.png)$/;
 
-export const RATING_REG_EXP = /^[1-5].[1-9]$|^[1-5]$/;
+// export const RATING_REG_EXP = /^[1-5].[1-9]$|^[1-5]$/;

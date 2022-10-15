@@ -1,4 +1,4 @@
-export enum Accomodation ={
+export enum Accomodation { //
   Breakfast= 'Breakfast',
   AirConditioning = 'Air conditioning',
   LaptopFriendlyWorkspace = 'Laptop friendly workspace',

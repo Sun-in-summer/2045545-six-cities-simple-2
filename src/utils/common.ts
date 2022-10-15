@@ -26,6 +26,8 @@ export const createOffer = (row: string) => {
     commentsQuantity,
     longitude,
     latitude] = tokens;
+
+
   return {
     title,
     description,
@@ -40,7 +42,7 @@ export const createOffer = (row: string) => {
     guestsQuantity: Number.parseInt(guestsQuantity, 10),
     price: Number.parseInt(price, 10),
     accommodations: accommodations.split(';')
-      .map((name)=> ({name})),
+      .map((accomodation)=> accomodation),
     user: {
       userName,
       email,

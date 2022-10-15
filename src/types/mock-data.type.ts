@@ -1,5 +1,4 @@
 import {City} from './city.enum';
-import { Accomodation } from './accomodation.type.js';
 import { OfferType } from './offerType.enum.js';
 
 export type MockData = {
@@ -9,7 +8,7 @@ export type MockData = {
   previewPaths : string[],
   images : string[],
   types: OfferType[];
-  accommodations: Accomodation[];
+  accommodations: string[];///
   userNames: string[];
   emails : string[],
   avatarPaths : string[],

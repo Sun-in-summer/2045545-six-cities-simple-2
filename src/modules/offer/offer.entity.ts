@@ -1,10 +1,9 @@
 
-import typegoose, {getModelForClass, defaultClasses, Ref, Severity} from '@typegoose/typegoose';
+import typegoose, {getModelForClass, defaultClasses, Ref} from '@typegoose/typegoose';
 import { OfferType  } from '../../types/offerType.enum.js';
 import { UserEntity } from '../user/user.entity.js';
 import { TitleLength, DescriptionLength, Rating,  RoomQuantity, GuestQuanity, Price } from '../../const.js';
 import { City } from '../../types/city.enum.js';
-import {Accomodation} from '../../types/accomodation.type.js';
 import { Location } from '../../types/location.type.js';
 
 
@@ -16,9 +15,6 @@ export interface OfferEntity extends defaultClasses.Base {}
   schemaOptions: {
     collection: 'offers'
   },
-  options: {
-    allowMixed: Severity.ALLOW
-  }
 })
 
 export class OfferEntity extends defaultClasses.TimeStamps  {
@@ -110,7 +106,8 @@ export class OfferEntity extends defaultClasses.TimeStamps  {
   @prop({
     required: true,
   })
-  public accomodations!: Accomodation[];
+  public accomodations!: string[];///
+
 
   @prop({
     required: true,
@@ -125,10 +122,10 @@ export class OfferEntity extends defaultClasses.TimeStamps  {
 
   @prop({
     required: true,
-    allowMixed: Severity.ALLOW
   })
   public location!: Location;
 
 }
 
 export const OfferModel = getModelForClass(OfferEntity);
+
