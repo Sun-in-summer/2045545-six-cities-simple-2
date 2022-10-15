@@ -4,36 +4,8 @@ import { OfferType } from '../../types/offerType.enum.js';
 import { generateRandomValue, getRandomItem, getRandomItems } from '../../utils/random.js';
 import { OfferGeneratorInterface } from './offer-generator.interface.js';
 import dayjs from 'dayjs';
-
-const Rating = {
-  MIN: 1,
-  MAX: 5
-};
-
-const RoomQuantity = {
-  MIN: 1,
-  MAX: 8
-};
-
-const GuestQuanity ={
-  MIN: 1,
-  MAX: 10
-};
-
-const Price = {
-  MIN: 100,
-  MAX: 100000
-};
-
-const Comments = {
-  MIN: 1,
-  MAX: 1000000
-};
-
-const Weekday = {
-  MIN: 1,
-  MAX: 7
-};
+import {Rating ,RoomQuantity , GuestQuanity ,Price , Comments ,Weekday} from '../../const.js';
+import { City } from '../../types/city.enum.js';
 
 export default class OfferGenerator implements OfferGeneratorInterface {
   constructor(private readonly mockData: MockData){}
@@ -41,7 +13,7 @@ export default class OfferGenerator implements OfferGeneratorInterface {
   public generate(): string {
     const title = getRandomItem<string>(this.mockData.titles);
     const description = getRandomItem<string>(this.mockData.descriptions);
-    const city =  getRandomItem<string>(this.mockData.cities);
+    const city =  getRandomItem<City>(this.mockData.cities);//
     const previewPath = getRandomItem<string>(this.mockData.previewPaths);
     const images = getRandomItems<string>(this.mockData.images).join(';');
     const type = getRandomItem<OfferType>(this.mockData.types);
