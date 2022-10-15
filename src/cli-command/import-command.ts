@@ -45,14 +45,15 @@ export default class ImportCommand implements CliCommandInterface {
 
     await this.offerService.create({
       ...offer,
+      accommodations: offer.accommodations,
+      latitude: offer.location.latitude,
+      longitude: offer.location.longitude,
       userId:user.id
     });
   }
 
   private async onLine(line: string, resolve: ()=> void) {
     const offer = createOffer(line);
-
-
     await this.saveOffer(offer);
     resolve();
   }

@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { City } from '../types/city.enum.js';
 import { Offer } from '../types/offer.type.js';
 import { OfferType } from '../types/offerType.enum.js';
+// import { Accomodation } from '../types/accomodation.enum.js';
 
 
 export const createOffer = (row: string) => {
@@ -41,8 +42,7 @@ export const createOffer = (row: string) => {
     roomQuantity: Number.parseInt(roomQuantity, 10),
     guestsQuantity: Number.parseInt(guestsQuantity, 10),
     price: Number.parseInt(price, 10),
-    accommodations: accommodations.split(';')
-      .map((accomodation)=> accomodation),
+    accommodations: accommodations.split(';'),
     user: {
       userName,
       email,

@@ -5,6 +5,7 @@ import { OfferGeneratorInterface } from './offer-generator.interface.js';
 import dayjs from 'dayjs';
 import {Rating ,RoomQuantity , GuestQuanity ,Price , Comments ,Weekday} from '../../const.js';
 import { City } from '../../types/city.enum.js';
+// import { Accomodation } from '../../types/accomodation.enum.js';
 
 export default class OfferGenerator implements OfferGeneratorInterface {
   constructor(private readonly mockData: MockData){}

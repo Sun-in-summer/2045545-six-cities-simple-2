@@ -4,7 +4,7 @@ import { OfferType  } from '../../types/offerType.enum.js';
 import { UserEntity } from '../user/user.entity.js';
 import { TitleLength, DescriptionLength, Rating,  RoomQuantity, GuestQuanity, Price } from '../../const.js';
 import { City } from '../../types/city.enum.js';
-import { Location } from '../../types/location.type.js';
+import { Accommodation } from '../../types/accommodation.enum.js';
 
 
 const {prop, modelOptions} = typegoose;
@@ -105,8 +105,11 @@ export class OfferEntity extends defaultClasses.TimeStamps  {
 
   @prop({
     required: true,
+    type: String,
+    enum: Accommodation,
+    default: []
   })
-  public accomodations!: string[];///
+  public accommodations!: Accommodation[];////
 
 
   @prop({
@@ -120,10 +123,11 @@ export class OfferEntity extends defaultClasses.TimeStamps  {
   })
   public commentsQuantity!: number;
 
-  @prop({
-    required: true,
-  })
-  public location!: Location;
+  @prop()
+  public latitude!: number;
+
+  @prop()
+  public longitude!: number;
 
 }
 
