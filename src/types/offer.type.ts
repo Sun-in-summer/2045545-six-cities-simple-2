@@ -1,5 +1,4 @@
-
-import { Accomodation } from './accomodation.type.js';
+import { City } from './city.enum.js';
 import { Location } from './location.type.js';
 import { OfferType } from './offerType.enum.js';
 import { User } from './user.type.js';
@@ -9,7 +8,7 @@ export type Offer = {
   title: string;
   description: string;
   postDate: Date;
-  city: string;
+  city: City;//
   previewPath: string;
   images: string[];
   isPremium: boolean;
@@ -18,7 +17,7 @@ export type Offer = {
   roomQuantity: number;
   guestsQuantity: number;
   price: number;
-  accommodations: Accomodation[];
+  accommodations: string[];///
   user: User;
   commentsQuantity: number;
   location: Location;
