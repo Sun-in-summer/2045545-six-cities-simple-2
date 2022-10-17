@@ -1,0 +1,588 @@
+openapi: 3.0.2
+info:
+  title: API сервер для проекта «Six-cities-simple».
+  description: |-
+    * Список ресурсов и маршрутов сервера «Six-cities-simple».
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 2.0.0
+tags:
+  - name: offers
+    description: Действия с объявлениями.
+  - name: comments
+    description: Действия с комментариями.
+  - name: users
+    description: Действия с пользователем.
+paths:
+  /users/register:
+    post:
+      tags:
+        - users
+      summary: Регистрация пользователя
+      description: Регистрирует нового пользователя.
+      requestBody:
+        description: Информация для создания нового пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createUser'
+        required: true
+      responses:
+        "201":
+          description: Пользователь зарегистрирован. Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+
+        "409":
+          description: Пользователь с таким email уже существует.
+
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Авторизация пользователя
+      description: Авторизует пользователя на основе логина и пароля
+      requestBody:
+        description: Информация для авторизации пользователя
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/auth'
+        required: true
+      responses:
+        "200":
+          description: Авторизация пройдена
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/user'
+        "401":
+          description: Ошибка запроса
+
+    get:
+      tags:
+        - users
+      summary: Проверка состояния пользователя
+      description: Возвращает информацию по авторизованному пользователю
+      requestBody:
+        description: Статус авторизации пользователя
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/auth'
+        required: true
+      parameters:
+        - in: header
+          name: X-token
+          schema:
+            type: string
+            example: njpqjRGERtqr809kdsvndKSG
+
+      responses:
+        "200":
+          description: Пользователь авторизован
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/user'
+        "401":
+          description: Пользователь не авторизован
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/authError'
+
+  /users/logout:
+    delete:
+      tags:
+       - users
+      summary: Завершить сеанс пользователя
+      description: Завершить сеанс пользователя
+      parameters:
+        - in: header
+          name: X-token
+          schema:
+            type: string
+            example: njpqjRGERtqr809kdsvndKSG
+      responses:
+        "200":
+          description: Сеанс пользователя завершён.
+
+  /users/{userId}/avatar:
+    post:
+      tags:
+        - users
+      summary: Загрузить изображение аватара
+      description: Загружает изображение аватара пользователя. Изображение
+        аватара должно быть в формате `png` или `jpg`.
+      responses:
+        "200":
+          description: Аватар загружен
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  avatarPath:
+                    type: string
+                    example: img/1.jpg
+
+  /offers:
+    post:
+      tags:
+        - offers
+      summary: Создание объявления
+      description: Создаёт новое объявление
+      requestBody:
+        description: Информация для создания нового объявления
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createOffer"
+      parameters:
+        - in: header
+          name: X-token
+          schema:
+            type: string
+            example: njpqjRGERtqr809kdsvndKSG
+
+      responses:
+        "201":
+          description: Объявление создано. Объект объявления.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+
+        "400":
+          description: Объявление не создано. Ошибка данных
+
+    get:
+      tags:
+        - offers
+      summary: Получить список объявлений
+      description: Возвращает массив объявлений. Каждое объявление описано в виде объекта.
+
+      responses:
+        "201":
+          description: Объявления получены.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/offer'
+
+        "408":
+          description: Объявления не получены. Попробуйте повторить попытку позже.
+
+  /offers/{offerId}:
+    get:
+      tags:
+        - offers
+      summary: Получить объявление
+      description: Возвращает объявление с идентификатором offerId.
+
+      responses:
+        "200":
+          description: Объявление успешно получено.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+
+        "404":
+          description: Не удаётся получить обявление, возможно оббъявление с указанным id отсутствует.
+
+    patch:
+      tags:
+        - offers
+      summary: Обновить объявление
+      description: Обновляет объявление с идентификатором offerId.
+      requestBody:
+        description: Информация для обновления объявления
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/createOffer"
+
+
+      responses:
+        "200":
+          description: Объявление успешно обновлено.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+
+        "404":
+          description: Не удаётся обновить обявление, возможно оббъявление с указанным id отсутствует.
+
+    delete:
+      tags:
+          - offers
+      summary: Удалить объявление
+      description: Удаляет объявление с идентификатором offerId.
+      parameters:
+        - in: header
+          name: X-token
+          schema:
+            type: string
+            example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20
+
+      responses:
+        "200":
+          description: Объявление успешно удалено.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offer'
+
+        "404":
+          description: Не удаётся удалить обявление, возможно оббъявление с указанным id отсутствует.
+
+
+  /comments/{offerId}:
+    get:
+      tags:
+        - comments
+      summary: Получение массива комментариев
+      description: Возвращает массив комментариев для объявления с идентификатором offerId. Каждый комментарий описан в виде объекта.
+
+      responses:
+        "200":
+          description: Комментарии успешно получены.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/сomment'
+
+        "408":
+          description: Не удаётся получить комментарии, повторите попытку позже.
+
+    post:
+      tags:
+        - comments
+      summary: Добавление нового комментария
+      description: Добавляет новый комментарий для с идентификатором offerId. Возвращает объект созданного комментария.
+      requestBody:
+        description: Информация для добавления комментария.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/сomment'
+        required: true
+
+      responses:
+        "201":
+          description: Комментарий успешно создан.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/сomment'
+
+        "400":
+          description: Ошибка запроса.
+
+        "401":
+          description: Комментарий могут оставлять только авторизованные пользователи.
+
+      parameters:
+        - in: header
+          name: X-token
+          schema:
+            type: string
+            example: T2xpdmVyLmNvbm5lckBnbWFpbC5jb20=
+
+
+components:
+  schemas:
+    createUser:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+
+        userName:
+          type: string
+          example: Keks
+
+        avatarPath:
+          type: string
+          example: 1.jpg
+
+        isPro:
+          type: boolean
+          example: true
+
+        password:
+          type: string
+          example: 123456
+
+    user:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+
+        userName:
+          type: string
+          example: Keks
+
+        avatarPath:
+          type: string
+          example: 1.jpg
+
+        isPro:
+          type: boolean
+          example: true
+
+        token:
+          type: string
+          example: ab1061c6425ea6329c3d6a04
+
+        id:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
+    auth:
+      type: object
+      properties:
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+
+        password:
+          type: string
+          example: 123456
+
+    authError:
+      type: object
+      properties:
+        error:
+          type: string
+          example: 'authentification failed'
+
+    offer:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Nice, cozy, warm big bed apartment
+        description:
+          type: string
+          example: Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country.
+        postDate:
+          type: string
+          example: 2021-10-05T14:48:00.000Z
+        city:
+          type: object
+          properties:
+            location:
+              type: object
+              properties:
+                latitude:
+                  type: number
+                  example: 50.938361
+                longitude:
+                  type: number
+                  example: 6.959974
+                zoom:
+                  type: number
+                  example: 8
+            name:
+              type: string
+              example: Cologne
+        previewPath:
+          type: string
+          example: preview/1.jpg
+        images:
+          type: array
+          example: [https://10.react.pages.academy/static/hotel/14.jpg",
+                     https://10.react.pages.academy/static/hotel/6.jpg,
+                     https://10.react.pages.academy/static/hotel/5.jpg",
+                     https://10.react.pages.academy/static/hotel/14.jpg,
+                     https://10.react.pages.academy/static/hotel/6.jpg,
+                     https://10.react.pages.academy/static/hotel/5.jpg]
+        isPremium:
+          type: boolean
+          example: true
+        rating:
+          type: number
+          example: 5.0
+        type:
+          type: string
+          example: Apartment
+        roomQuantity:
+          type: number
+          example: 3
+        guestsQuantity:
+          type: number
+          example: 2
+        price:
+          type: number
+          example: 120
+        accommodations!:
+          type: array
+          example: [Breakfast, Air conditioning]
+        userId:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+        commentsQuantity:
+          type: number
+          example: 15
+        latitude:
+          type: number
+          example: 50.938361
+        longitude:
+          type: number
+          example: 6.959974
+        user:
+          type: object
+          properties:
+            avatarPath:
+              type: string
+              example: img/1.png
+            email:
+              type: string
+              example: keks.academy@gmail.com
+            id:
+              type: string
+              example: 6329c3d6a04ab1061c6425ea
+            isPro:
+              type: boolean
+              example: false
+            userame:
+              type: string
+              example: keks.academy
+        id:
+          type: number
+          example: 1
+        isFavorite:
+          type: boolean
+          example: false
+
+
+    createOffer:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Nice, cozy, warm big bed apartment
+        description:
+          type: string
+          example: Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country.
+        city:
+          type: string
+          example: Cologne
+        previewPath:
+          type: string
+          example: preview/1.jpg
+        images:
+          type: array
+          example: [https://10.react.pages.academy/static/hotel/14.jpg",
+                     https://10.react.pages.academy/static/hotel/6.jpg,
+                     https://10.react.pages.academy/static/hotel/5.jpg",
+                     https://10.react.pages.academy/static/hotel/14.jpg,
+                     https://10.react.pages.academy/static/hotel/6.jpg,
+                     https://10.react.pages.academy/static/hotel/5.jpg]
+        isPremium:
+          type: boolean
+          example: true
+        rating:
+          type: number
+          example: 5.0
+        type:
+          type: string
+          example: Apartment
+        roomQuantity:
+          type: number
+          example: 3
+        guestsQuantity:
+          type: number
+          example: 2
+        price:
+          type: number
+          example: 120
+        accommodations!:
+          type: array
+          example: [Breakfast, Air conditioning]
+        userId:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+        commentsQuantity:
+          type: number
+          example: 15
+        latitude:
+          type: number
+          example: 54.45514938496378
+        longitude:
+          type: number
+          example: 5.773888537499948
+
+
+
+
+    сomment:
+      type: object
+      properties:
+        text:
+          type: string
+          example: Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated.
+        date:
+          type: string
+          example: 2022-10-08T16:59:37.625Z
+        id:
+          type: number
+          example: 34
+        rating:
+          type: number
+          example: 4.3
+        user:
+          type: object
+          properties:
+            avatarPath:
+              type: string
+              example: img/1.png
+            email:
+              type: string
+              example: keks.academy@gmail.com
+            id:
+              type: string
+              example: 6329c3d6a04ab1061c6425ea
+            isPro:
+              type: boolean
+              example: false
+            userName:
+              type: string
+              example: keks.academy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
