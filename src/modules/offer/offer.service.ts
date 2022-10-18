@@ -42,6 +42,30 @@ export default class OfferService implements OfferServiceInterface {
       .find()
       .populate(['userId'])
       .limit(limit)
+      .aggregate([
+        {
+          $lookup: {
+            from: 'comments',
+            let: { offerId: '$_id'},
+            pipeline: [
+              { $group:
+                {
+                  _id: '$offerId',
+
+                }
+              }
+            ],
+            as: 'ratings'
+          },
+        },
+        { $project :{_id: 1, rating: 1}},
+        { $addFields:
+            { id: { $toString: '$_id'},
+              commentsCount: { $size: '$ratings'} ,
+              averageRating: { $avg: '$rating' }}
+        },
+        { $unset: 'ratings' }
+      ])
       .sort({postDate: SortType.Down})
       .exec();
   }
@@ -73,14 +97,31 @@ export default class OfferService implements OfferServiceInterface {
     const averageRating =  await this.offerModel
       .aggregate([
         {
-          $group: {
-            _id: offerId,
-            avgRating: { $avg: '$rating' }
-          }
-        }
+          $lookup: {
+            from: 'comments',
+
+            pipeline: [
+              { $match:
+                {
+                  _id: offerId,
+                }
+              },
+              { $project :{_id: 1, rating: 1}},
+            ],
+            as: 'ratings'
+          },
+        },
+        { $addFields:
+            { id: { $toString: '$_id'},
+              commentsCount: { $size: '$ratings'} ,
+              avgRating: { $avg: '$rating' }}
+        },
+        { $unset: 'ratings' },
       ]).exec();
 
     return averageRating[0].avgRating;
+
+
   }
 }
 
