@@ -1,4 +1,3 @@
-// import { Accomodation } from './accomodation.enum';
 import {City} from './city.enum';
 import { OfferType } from './offerType.enum.js';
 
