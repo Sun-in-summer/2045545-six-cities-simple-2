@@ -69,12 +69,18 @@ export default class OfferService implements OfferServiceInterface {
       .findByIdAndUpdate(offerId, {'$inc':{commentsQuantity: 1,}}).exec();
   }
 
-  public async getOfferRating(offerId: string, newRating: number): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel
-      .findByIdAndUpdate(offerId, {
-        '$inc':{rating: newRating},
-        '$avg':{rating}////
-      }).exec();
+  public async getOfferRatingById(offerId: string): Promise< number| null> {
+    const averageRating =  await this.offerModel
+      .aggregate([
+        {
+          $group: {
+            _id: offerId,
+            avgRating: { $avg: '$rating' }
+          }
+        }
+      ]).exec();
+
+    return averageRating[0].avgRating;
   }
 }
 
