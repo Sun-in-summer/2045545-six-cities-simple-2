@@ -11,7 +11,7 @@ export default class CommentController extends Controller {
   ) {
     super(logger);
 
-    this.logger.info('Register routes for CommentController…');
+    this.logger.info('Register routes for CommentController...');
 
     this.addRoute({path: '/', method: HttpMethod.Get, handler: this.index});
     this.addRoute({path: '/', method: HttpMethod.Post, handler: this.create});

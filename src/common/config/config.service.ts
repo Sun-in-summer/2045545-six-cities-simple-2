@@ -14,7 +14,6 @@ export default class ConfigService implements ConfigInterface {
     this.logger= logger;
 
     const parsedOutput= config();
-    console.log(parsedOutput);
 
     if (parsedOutput.error) {
       throw new Error('Can\'t read .env file. Perhaps the file does not exist.');
