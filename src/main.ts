@@ -15,9 +15,15 @@ import { UserEntity, UserModel } from './modules/user/user.entity.js';
 import OfferService from './modules/offer/offer.service.js';
 import { OfferServiceInterface } from './modules/offer/offer-service.interface.js';
 import { OfferEntity, OfferModel } from './modules/offer/offer.entity.js';
-import { CommentEntity, CommentModel } from './modules/comments/comment.entity.js';
-import { CommentServiceInterface } from './modules/comments/comment-service.interface.js';
-import CommentService from './modules/comments/comment.service.js';
+import { CommentEntity, CommentModel } from './modules/comment/comment.entity.js';
+import { CommentServiceInterface } from './modules/comment/comment-service.interface.js';
+import CommentService from './modules/comment/comment.service.js';
+import { ControllerInterface } from './common/controller/controller.interface.js';
+import UserController from './modules/user/user.controller.js';
+import OfferController from './modules/offer/offer.controller.js';
+import CommentController from './modules/comment/comment.controller.js';
+import { ExceptionFilterInterface } from './common/errors/exception-filter.interface.js';
+import ExceptionFilter from './common/errors/exception-filter.js';
 
 
 const applicationContainer = new Container();
@@ -31,6 +37,11 @@ applicationContainer.bind<OfferServiceInterface>(Component.OfferServiceInterface
 applicationContainer.bind<types.ModelType<OfferEntity>>(Component.OfferModel).toConstantValue(OfferModel);
 applicationContainer.bind<CommentServiceInterface>(Component.CommentServiceInterface).to(CommentService);
 applicationContainer.bind<types.ModelType<CommentEntity>>(Component.CommentModel).toConstantValue(CommentModel);
+applicationContainer.bind<ControllerInterface>(Component.UserController).to(UserController).inSingletonScope();
+applicationContainer.bind<ControllerInterface>(Component.OfferController).to(OfferController).inSingletonScope();
+applicationContainer.bind<ControllerInterface>(Component.CommentController).to(CommentController).inSingletonScope();
+applicationContainer.bind<ExceptionFilterInterface>(Component.ExceptionFilterInterface).to(ExceptionFilter).inSingletonScope();
+
 
 const application = applicationContainer.get<Application>(Component.Application);
 await application.init();
