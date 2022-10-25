@@ -5,6 +5,7 @@ import { OfferGeneratorInterface } from './offer-generator.interface.js';
 import dayjs from 'dayjs';
 import {Rating ,RoomQuantity , GuestQuanity ,Price , Comments ,Weekday} from '../../const.js';
 import { City } from '../../types/city.enum.js';
+import { Accommodation } from '../../types/accommodation.enum.js';
 // import { Accomodation } from '../../types/accomodation.enum.js';
 
 export default class OfferGenerator implements OfferGeneratorInterface {
@@ -17,7 +18,7 @@ export default class OfferGenerator implements OfferGeneratorInterface {
     const previewPath = getRandomItem<string>(this.mockData.previewPaths);
     const images = getRandomItems<string>(this.mockData.images).join(';');
     const type = getRandomItem<OfferType>(this.mockData.types);
-    const accommodations = getRandomItems<string>(this.mockData.accommodations).join(';');///
+    const accommodations = getRandomItems<Accommodation>(this.mockData.accommodations).join(';');///
     const userName = getRandomItem<string>(this.mockData.userNames);
     const email = getRandomItem<string>(this.mockData.emails);
     const avatarPath = getRandomItem<string>(this.mockData.avatarPaths);
