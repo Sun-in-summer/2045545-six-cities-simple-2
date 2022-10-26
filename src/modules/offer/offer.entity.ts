@@ -18,7 +18,6 @@ export interface OfferEntity extends defaultClasses.Base {}
 })
 
 export class OfferEntity extends defaultClasses.TimeStamps  {
-
   @prop({
     trim: true,
     required: true,
@@ -28,6 +27,12 @@ export class OfferEntity extends defaultClasses.TimeStamps  {
       `Max length for title is ${TitleLength.MAX}`]
   })
   public title!: string;
+
+  @prop({
+    ref: UserEntity,
+    required: true,
+  })
+  public userId!: Ref<UserEntity>;
 
   @prop({
     trim: true,
@@ -111,12 +116,6 @@ export class OfferEntity extends defaultClasses.TimeStamps  {
   })
   public accommodations!: Accommodation[];////
 
-
-  @prop({
-    required: true,
-    ref: UserEntity
-  })
-  public userId!: Ref<UserEntity>;
 
   @prop({
     default: 0

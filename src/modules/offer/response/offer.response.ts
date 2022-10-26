@@ -1,7 +1,8 @@
 import {Expose, Type}  from 'class-transformer';
-import { City } from '../../../types/city.enum';
-import { OfferType } from '../../../types/offerType.enum';
-import UserResponse from '../../user/response/user.response';
+import { Accommodation } from '../../../types/accommodation.enum.js';
+import { City } from '../../../types/city.enum.js';
+import { OfferType } from '../../../types/offerType.enum.js';
+import UserResponse from '../../user/response/user.response.js';
 
 export default class OfferResponse {
   @Expose()
@@ -44,7 +45,7 @@ export default class OfferResponse {
   public price!: number;
 
   @Expose()
-  public accommodations!: string[];
+  public accommodations!: Accommodation[];
 
   @Expose({name: 'userId'})
   @Type(() => UserResponse)

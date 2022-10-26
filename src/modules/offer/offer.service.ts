@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
 import {DocumentType, types} from '@typegoose/typegoose';
 import CreateOfferDto from './dto/create-offer.dto.js';
@@ -8,7 +9,7 @@ import { Component } from '../../types/component.types.js';
 import UpdateOfferDto from './dto/update-offer.dto.js';
 import { DEFAULT_OFFER_COUNT } from './offer.constant.js';
 import { SortType } from '../../types/sort-type.enum.js';
-// import { SortType } from '../../types/sort-type.enum.js';
+
 
 @injectable()
 export default class OfferService implements OfferServiceInterface {
@@ -18,7 +19,9 @@ export default class OfferService implements OfferServiceInterface {
     private readonly logger: LoggerInterface,
 
     @inject(Component.OfferModel)
-    private readonly offerModel: types.ModelType<OfferEntity>
+    private readonly offerModel: types.ModelType<OfferEntity>,
+
+
   ) {}
 
   public async create(dto: CreateOfferDto): Promise <DocumentType<OfferEntity>> {
@@ -30,42 +33,19 @@ export default class OfferService implements OfferServiceInterface {
   }
 
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel
+    return  this.offerModel
       .findById(offerId)
-      .populate(['userId'])
+      .populate('userId')
       .exec();
+
   }
 
   public async find(count?: number): Promise<DocumentType<OfferEntity>[]>{
     const limit = count ?? DEFAULT_OFFER_COUNT;
     return this.offerModel
       .find()
-      .populate(['userId'])
+      .populate('userId')
       .limit(limit)
-      .aggregate([
-        {
-          $lookup: {
-            from: 'comments',
-            let: { offerId: '$_id'},
-            pipeline: [
-              { $group:
-                {
-                  _id: '$offerId',
-
-                }
-              }
-            ],
-            as: 'ratings'
-          },
-        },
-        { $project :{_id: 1, rating: 1}},
-        { $addFields:
-            { id: { $toString: '$_id'},
-              commentsCount: { $size: '$ratings'} ,
-              averageRating: { $avg: '$rating' }}
-        },
-        { $unset: 'ratings' }
-      ])
       .sort({postDate: SortType.Down})
       .exec();
   }
@@ -79,7 +59,7 @@ export default class OfferService implements OfferServiceInterface {
   public async updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null>{
     return this.offerModel
       .findByIdAndUpdate(offerId, dto, {new: true})
-      .populate(['userId'])
+      .populate('userId')
       .exec();
   }
 
