@@ -2,16 +2,17 @@ import { Accommodation } from '../../../types/accommodation.enum.js';
 import { City } from '../../../types/city.enum.js';
 import { OfferType } from '../../../types/offerType.enum.js';
 import {ArrayMinSize, ArrayMaxSize, IsArray, IsBoolean, IsEnum, IsInt, Max, MaxLength, Min, MinLength, IsLatitude, IsLongitude, IsUrl, IsOptional} from 'class-validator';
+import {MIN_TITLE, MAX_TITLE, MIN_DESCRIPTION , MAX_DESCRIPTION , MAX_PATH_LENGH ,IMAGES_QUANTITY , MIN_ROOM_QTY ,MAX_ROOM_QTY , MIN_GUESTS_QTY , MAX_GUESTS_QTY, MIN_PRICE  , MAX_PRICE } from '../offer.constant.js';
 
 export default class UpdateOfferDto {
   @IsOptional()
-  @MinLength(10, {message: 'Minimum title length must be $constraint1, but actual is $value.'})
-  @MaxLength(100, {message: 'Maximum title length must be $constraint1, but actual is $value.'})
+  @MinLength(MIN_TITLE, {message: 'Minimum title length must be $constraint1, but actual is $value.'})
+  @MaxLength(MAX_TITLE, {message: 'Maximum title length must be $constraint1, but actual is $value.'})
   public title!: string;
 
   @IsOptional()
-  @MinLength(20, {message: 'Minimum description length must be 20, but actual is $value.'})
-  @MaxLength(1024, {message: 'Maximum description length must be 1024, but actual is $value.'})
+  @MinLength(MIN_DESCRIPTION, {message: 'Minimum description length must be 20, but actual is $value.'})
+  @MaxLength(MAX_DESCRIPTION, {message: 'Maximum description length must be 1024, but actual is $value.'})
   public description!: string;
 
   @IsOptional()
@@ -19,14 +20,14 @@ export default class UpdateOfferDto {
   public city!: City;
 
   @IsOptional()
-  @MaxLength(256, {message: 'Too long for the field "previewImage"'})
+  @MaxLength(MAX_PATH_LENGH, {message: 'Too long for the field "previewImage"'})
   @IsUrl({ message: 'Preview url should be valid' })
   public previewPath!: string;
 
   @IsOptional()
-  @IsArray({message: 'Field images must be an array of 6'})
-  @ArrayMinSize(6)
-  @ArrayMaxSize(6)
+  @IsArray({message: `Field images must be an array of ${IMAGES_QUANTITY}`})
+  @ArrayMinSize(IMAGES_QUANTITY)
+  @ArrayMaxSize(IMAGES_QUANTITY)
   @IsUrl({ message: 'Url of images should be valid' }, { each: true })
   public images!: string[];
 
@@ -40,24 +41,24 @@ export default class UpdateOfferDto {
 
   @IsOptional()
   @IsInt({message: 'Room quantity must be an integer'})
-  @Min(1, {message: 'Min rooms quantity is 1'})
-  @Max(8, {message: 'Max rooms quantity is 8'})
+  @Min(MIN_ROOM_QTY, {message: 'Min rooms quantity is $constraint1'})
+  @Max(MAX_ROOM_QTY, {message: 'Max rooms quantity is $constraint1'})
   public roomQuantity!: number;
 
   @IsOptional()
   @IsInt({message: 'Guests quantity must be an integer'})
-  @Min(1, {message: 'Min guests quantity is 1'})
-  @Max(10, {message: 'Max guests quantity is 10'})
+  @Min(MIN_GUESTS_QTY, {message: 'Min guests quantity is $constraint1'})
+  @Max(MAX_GUESTS_QTY, {message: 'Max guests quantity is $constraint1'})
   public guestsQuantity!: number;
 
   @IsInt({message: 'Price must be an integer'})
-  @Min(100, {message: 'Minimum price is 100'})
-  @Max(100000, {message: 'Maximum price is 100000'})
+  @Min(MIN_PRICE, {message: 'Minimum price is $constraint1'})
+  @Max(MAX_PRICE, {message: 'Maximum price is $constraint1'})
   public price!: number;
 
   @IsOptional()
   @IsArray()
-  @IsEnum(Accommodation, {each: true, message: 'Categories field must be an array of valid id'})
+  @IsEnum(Accommodation, {each: true, message: 'Accomodations must be an array from available values'})
   public accommodations!: Accommodation[];
 
   @IsOptional()

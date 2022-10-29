@@ -6,8 +6,8 @@ export default class CommentResponse {
   @Expose()
   public text!: string;
 
-  @Expose()
-  public offerId!: string;
+  @Expose({name: 'createdAt'})
+  public postDate!: Date;
 
   @Expose({name: 'userId'})
   @Type(() => UserResponse)
