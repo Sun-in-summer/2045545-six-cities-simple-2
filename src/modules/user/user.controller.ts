@@ -33,7 +33,7 @@ export default class UserController extends Controller {
     this.addRoute({
       path: '/',
       method: HttpMethod.Get,
-      handler: this.index
+      handler: this.searchByEmail
     });
     this.addRoute({
       path: '/register',
@@ -52,7 +52,7 @@ export default class UserController extends Controller {
     this.addRoute({
       path: '/login',
       method: HttpMethod.Get,
-      handler: this.checkAuthenticate
+      handler: this.checkAuthenticate,
     });
     this.addRoute({
       path: '/:userId/avatar',
@@ -65,8 +65,8 @@ export default class UserController extends Controller {
     });
   }
 
-  public async index(_req: Request, res: Response): Promise <void>{
-    const user= await this.userService.findByEmail('test@pisem.local');
+  public async searchByEmail(req: Request, res: Response): Promise <void>{
+    const user= await this.userService.findByEmail(req.body.email);
     this.send(res, StatusCodes.OK, fillDTO(UserResponse, user));
   }
 
@@ -109,7 +109,8 @@ export default class UserController extends Controller {
       { email: user.email, id: user.id}
     );
 
-    this.ok(res, fillDTO(LoggedUserResponse, {email: user.email, token}));
+    this.ok(res,
+      fillDTO(LoggedUserResponse, {email: user.email, token}));
   }
 
   public async uploadAvatar(req: Request, res: Response) {

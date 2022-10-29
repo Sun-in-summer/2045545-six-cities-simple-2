@@ -34,7 +34,13 @@ export default class OfferController extends Controller {
     this.logger.info('Register routes for OfferController...');
 
     this.addRoute({path: '/', method: HttpMethod.Get, handler: this.index});
-    this.addRoute({path: '/', method: HttpMethod.Post, handler: this.create, middlewares: [new ValidateDtoMiddleware(CreateOfferDto)]});
+    this.addRoute({
+      path: '/',
+      method: HttpMethod.Post,
+      handler: this.create,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateOfferDto)]});
     this.addRoute({
       path: '/:offerId',
       method: HttpMethod.Get,
@@ -89,6 +95,7 @@ export default class OfferController extends Controller {
     req: Request <Record<string, unknown>, Record<string, unknown>, CreateOfferDto>,
     res: Response
   ): Promise<void> {
+    console.log(req.user.id);
     const {body, user} =req;
     const result = await this.offerService.create({...body, userId: user.id});
     const offer = await this.offerService.findById(result.id);
