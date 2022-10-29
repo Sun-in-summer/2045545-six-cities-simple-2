@@ -42,9 +42,21 @@ export const DescriptionLength = {
   MAX: 1024
 };
 
+export const CommentTextLength = {
+  MIN: 5,
+  MAX: 1024
+};
+
+export const PasswordLength ={
+  MIN:6,
+  MAX: 12
+};
+
+export const IMAGES_QUANTITY = 6;
+export const MAX_PATH_LENGH = 256;
 
 export const EMAIL_REG_EXP = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,5}$/;
 
 export const AVATAR_PATH_REG_EXP = /^.+(?:.jpg)|.+(?:.png)$/;
 
-// export const RATING_REG_EXP = /^[1-5].[1-9]$|^[1-5]$/;
+

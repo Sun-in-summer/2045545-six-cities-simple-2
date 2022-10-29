@@ -14,7 +14,7 @@ Content-Type:  application/json
 
   {
   "userName": "Mariya",
-  "email": "test4@test.test",
+  "email": "test41@test.test",
   "avatarPath": "7.jpg",
   "isPro": false,
   "password": "gdhlhlthy"
@@ -23,7 +23,7 @@ Content-Type:  application/json
 ###
 ## Найти объявление по идентификатору
 
-GET http://localhost:4000/offers/635573f783028852a1050b82 HTTP/1.1
+GET http://localhost:4000/offers/635d48b97aafb43648893dfd HTTP/1.1
 
 ###
 GET http://localhost:4000/offers/634b1f50cba38eefcbea2885 HTTP/1.1
@@ -47,7 +47,7 @@ Content-Type: application/json
   ],
   "type": "Apartment",
   "price": 123,
-  "userId": "62823cb2c5a64ce9f1b50ec8",
+  "userId": "635d39cba595dc40686ac858",
   "guestsQuantity": 1,
   "roomQuantity" : 1,
   "rating": 3.2,
@@ -56,8 +56,7 @@ Content-Type: application/json
   "isPremium": false,
   "accommodations": [],
   "latitude": 50.938361,
-  "longitude": 6.959974,
-  "commentsQuantity": 10
+  "longitude": 6.959974
 }
 
 ###
@@ -86,17 +85,16 @@ Content-Type: application/json
 
 {
   "text": "Как  Фирменная упаковка сохранена?",
-  "offerId": "6357d586d4a7cc07d5b8a67b",
-  "userId": "63541e2f0e6725dacda7715f",
+  "offerId": "635d48b97aafb43648893dfd",
+  "userId": "635d39cba595dc40686ac858",
   "rating" : 5
 }
 
-###
 
 ###
 
 ## Список комментариев к объявлению
-GET http://localhost:4000/offers/6357a438cfc101b801c5cfca/comments HTTP/1.1
+GET http://localhost:4000/offers/635d48b97aafb43648893dfd/comments HTTP/1.1
 
 ###
 
@@ -118,6 +116,19 @@ Content-Type: image/png
 
 < /Users/avatar.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+## Проверить статус пользователя
+
+GET http://localhost:4000/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "oliver@main.com",
+  "password": "password"
+}
+
+
 
 
 

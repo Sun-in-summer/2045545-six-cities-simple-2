@@ -118,7 +118,8 @@ export class OfferEntity extends defaultClasses.TimeStamps  {
 
 
   @prop({
-    default: 0
+    default: 0,
+    required: false
   })
   public commentsQuantity!: number;
 
@@ -127,6 +128,9 @@ export class OfferEntity extends defaultClasses.TimeStamps  {
 
   @prop()
   public longitude!: number;
+
+  @prop({default: 0})
+  public totalRating!: number;
 
 }
 

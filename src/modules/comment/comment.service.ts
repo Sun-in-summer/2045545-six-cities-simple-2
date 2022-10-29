@@ -22,9 +22,9 @@ export default class CommentService implements CommentServiceInterface {
     const limit = count ?? DEFAULT_COMMENTS_COUNT;
     return this.commentModel
       .find({offerId})
-      .populate('userId')
-      .sort({postDate: SortType.Down})
+      .sort({createdAt: SortType.Down})
       .limit(limit)
+      .populate('userId')
       .exec();
   }
 

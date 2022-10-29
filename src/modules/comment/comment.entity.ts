@@ -33,7 +33,7 @@ export class CommentEntity extends defaultClasses.TimeStamps {
   public rating!: number;
 
   @prop({
-    required: true,
+    required: false,
   })
   public postDate!: Date;
 }

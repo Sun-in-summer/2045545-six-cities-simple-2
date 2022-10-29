@@ -13,6 +13,7 @@ export interface OfferServiceInterface extends DocumentExistsInterface {
   updateById(offerId: string, dto: UpdateOfferDto): Promise<DocumentType<OfferEntity> | null>;
   incCommentCount(offerId: string): Promise<DocumentType<OfferEntity> | null>;
   exists(documentId: string): Promise<boolean>;
-  getOfferRatingById(offerId: string): Promise< number | null>;
+  updateRating(offerId: string, value: number): Promise<DocumentType<OfferEntity> | null>;
+
 }
 

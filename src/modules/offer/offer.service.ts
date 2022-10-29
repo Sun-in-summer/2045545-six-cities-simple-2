@@ -44,9 +44,9 @@ export default class OfferService implements OfferServiceInterface {
     const limit = count ?? DEFAULT_OFFER_COUNT;
     return this.offerModel
       .find()
-      .populate('userId')
+      .sort({createdAt: SortType.Down})
       .limit(limit)
-      .sort({postDate: SortType.Down})
+      .populate('userId')
       .exec();
   }
 
@@ -73,36 +73,25 @@ export default class OfferService implements OfferServiceInterface {
       .findByIdAndUpdate(offerId, {'$inc':{commentsQuantity: 1,}}).exec();
   }
 
-  public async getOfferRatingById(offerId: string): Promise< number| null> {
-    const averageRating =  await this.offerModel
-      .aggregate([
-        {
-          $lookup: {
-            from: 'comments',
 
-            pipeline: [
-              { $match:
-                {
-                  _id: offerId,
-                }
-              },
-              { $project :{_id: 1, rating: 1}},
-            ],
-            as: 'ratings'
-          },
+  public async updateRating(offerId: string, value: number): Promise<DocumentType<OfferEntity> | null> {
+    const offer = await this.offerModel
+      .findByIdAndUpdate(offerId, {
+        '$inc': {
+          commentsQuantity: 1,
+          totalRating: value
         },
-        { $addFields:
-            { id: { $toString: '$_id'},
-              commentsCount: { $size: '$ratings'} ,
-              avgRating: { $avg: '$rating' }}
-        },
-        { $unset: 'ratings' },
-      ]).exec();
+      }, {new: true}).exec();
 
-    return averageRating[0].avgRating;
-
-
+    if (!offer) {
+      return null;
+    }
+    return this.offerModel
+      .findByIdAndUpdate(offerId, {
+        rating: offer.totalRating / offer.commentsQuantity
+      }, {new: true}).exec();
   }
+
 }
 
 
