@@ -3,10 +3,21 @@ Content-Type: application/json
 
 ###
 
-GET http://localhost:3123/api HTTP/1.1
 ###
-GET http://localhost:4000/users HTTP/1.1
-Content-type: application/json
+## Авторизация пользователя
+
+POST http://localhost:4000/users/login HTTP/1.1
+Content-Type: application/json
+
+  {
+    "email": "test43@test.test",
+    "password": "gdhlhlthy"
+  }
+###
+
+GET http://localhost:3123/api HTTP/1.1
+
+
 ###
 ## Cоздать нового пользователя
 POST http://localhost:4000/users/register HTTP/1.1
@@ -14,7 +25,7 @@ Content-Type:  application/json
 
   {
   "userName": "Mariya",
-  "email": "test43@test.test",
+  "email": "test45@test.test",
   "avatarPath": "7.jpg",
   "isPro": false,
   "password": "gdhlhlthy"
@@ -47,7 +58,7 @@ Content-Type: application/json
   ],
   "type": "Apartment",
   "price": 123,
-  "userId": "635d5d174fe198596fd30cd4",
+  "userId": "635d81592d0c54854e4da803",
   "guestsQuantity": 1,
   "roomQuantity" : 1,
   "rating": 3.2,
@@ -86,7 +97,7 @@ Content-Type: application/json
 {
   "text": "Как  Фирменная упаковка сохранена?",
   "offerId": "635d48b97aafb43648893dfd",
-  "userId": "635d39cba595dc40686ac858",
+  "userId": "635d5d174fe198596fd30cd4",
   "rating" : 5
 }
 
@@ -117,12 +128,8 @@ Content-Type: image/png
 ## Проверить статус пользователя
 
 GET http://localhost:4000/users/login HTTP/1.1
-Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3Q0M0B0ZXN0LnRlc3QiLCJpZCI6IjYzNWQ4MTU5MmQwYzU0ODU0ZTRkYTgwMyIsImlhdCI6MTY2NzA3Nzg1NiwiZXhwIjoxNjY3MjUwNjU2fQ.aSSY98YRodsKd9S17MXR9N3CMDIn29BB7D9-SMmh12I
 
-{
-  "email": "test42@test.test",
-  "password": "password"
-}
 
 ###
 ## Проверить статус пользователя
@@ -133,13 +140,13 @@ Content-Type: application/json
 {
   "email": "test43@test.test",
   "password": "gdhlhlthy"
-  }
+}
 
 ###
 
 ## Проверка токена пользователя
 GET http://localhost:4000/users/login HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRvcmFuc0BvdmVybG9vay5uZXQiLCJpZCI6IjYyOTM0MDgyZDFlMDU5MDBlMmVmYWVjMyIsImlhdCI6MTY1MzkwMzA1OSwiZXhwIjoxNjU0MDc1ODU5fQ.yMN3DID7PoMO1I4-fgwjGVWjdfnpQsCA8TL02APb-rU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InRlc3Q0M0B0ZXN0LnRlc3QiLCJpZCI6IjYzNWQ4MTU5MmQwYzU0ODU0ZTRkYTgwMyIsImlhdCI6MTY2NzA3NzY2NiwiZXhwIjoxNjY3MjUwNDY2fQ.rShUGs_AEm-bJCWg7lk2duE1C_3D0u0iNnf78Pb7Pzg
 
 ###
 
