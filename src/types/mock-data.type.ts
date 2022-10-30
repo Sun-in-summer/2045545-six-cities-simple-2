@@ -9,7 +9,7 @@ export type MockData = {
   previewPaths : string[],
   images : string[],
   types: OfferType[];
-  accommodations: Accommodation[];///
+  accommodations: Accommodation[];
   userNames: string[];
   emails : string[],
   avatarPaths : string[],

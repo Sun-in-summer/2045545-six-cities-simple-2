@@ -2,7 +2,7 @@ import { City } from '../../../types/city.enum.js';
 import { OfferType } from '../../../types/offerType.enum.js';
 import {ArrayMinSize, ArrayMaxSize, IsArray, IsBoolean, IsDateString, IsEnum, IsInt, Max, MaxLength, Min, MinLength, IsLatitude, IsLongitude, IsNumber, IsUrl } from 'class-validator';
 import { Accommodation } from '../../../types/accommodation.enum.js';
-import { TitleLength, DescriptionLength, RoomQuantity, GuestQuanity, Rating , Price , MAX_PATH_LENGH, IMAGES_QUANTITY} from '../../../const.js';
+import { TitleLength, DescriptionLength, RoomQuantity, GuestQuanity, Rating , Price , IMAGES_QUANTITY} from '../../../const.js';
 
 
 export default class CreateOfferDto {
@@ -20,9 +20,6 @@ export default class CreateOfferDto {
   @IsEnum(City, {message: 'City must be one from the follows: Paris, Cologne, Brussels, Amsterdam, Hamburg,Dusseldorf.'})
   public city!: City;
 
-  @MaxLength(MAX_PATH_LENGH, {message: 'Too long for the field "previewImage"'})
-  @IsUrl({ message: 'Preview url should be valid' })
-  public previewPath!: string;
 
   @IsArray({message: `Field images must be an array of ${IMAGES_QUANTITY}`})
   @ArrayMinSize(IMAGES_QUANTITY)

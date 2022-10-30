@@ -9,7 +9,7 @@ export type Offer = {
   title: string;
   description: string;
   postDate: Date;
-  city: City;//
+  city: City;
   previewPath: string;
   images: string[];
   isPremium: boolean;
@@ -18,7 +18,7 @@ export type Offer = {
   roomQuantity: number;
   guestsQuantity: number;
   price: number;
-  accommodations: Accommodation[];///
+  accommodations: Accommodation[];
   user: User;
   commentsQuantity: number;
   location: Location;

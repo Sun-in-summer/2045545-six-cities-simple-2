@@ -13,17 +13,19 @@ import { fillDTO } from '../../utils/common.js';
 import CommentResponse from './response/comment.response.js';
 import { PrivateRouteMiddleware } from '../../common/middlewares/private-route.middleware.js';
 import {ValidateDtoMiddleware} from '../../common/middlewares/validate-dto.middleware.js';
+import {ConfigInterface} from '../../common/config/config.interface.js';
 
 
 @injectable()
 export default class CommentController extends Controller {
   constructor(
     @inject(Component.LoggerInterface) logger: LoggerInterface,
+    @inject(Component.ConfigInterface) configService: ConfigInterface,
     @inject(Component.CommentServiceInterface) private readonly commentService: CommentServiceInterface,
     @inject(Component.OfferServiceInterface) private readonly offerService: OfferServiceInterface,
 
   ) {
-    super(logger);
+    super(logger, configService);
 
     this.logger.info('Register routes for CommentController...');
 
@@ -35,8 +37,13 @@ export default class CommentController extends Controller {
       ]});
   }
 
-  public index(_req: Request, _res: Response): void {
-    console.log(_req, _res);// Код обработчика
+  public async index(
+    {params}: Request,
+    res: Response,
+  ): Promise <void> {
+    const {offerId} = params;
+    const comments = await this.commentService.findByOfferId(offerId);
+    this.ok(res, fillDTO(CommentResponse, comments));
   }
 
   public async create(

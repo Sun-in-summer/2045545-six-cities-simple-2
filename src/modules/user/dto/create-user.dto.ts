@@ -4,8 +4,6 @@ export default class CreateUserDto {
   @IsEmail()
   public email!: string ;
 
-  @IsString({ message: 'Avatar path must be correct' })
-  public avatarPath!: string;
 
   @IsString({ message: 'Name is required' })
   @Length(UserNameLength.MIN, UserNameLength.MAX, { message: 'Min length is $constraint1, max is $constraint2' })

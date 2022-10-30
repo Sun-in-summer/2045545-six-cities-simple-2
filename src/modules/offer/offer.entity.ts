@@ -56,9 +56,7 @@ export class OfferEntity extends defaultClasses.TimeStamps  {
   })
   public city!: City;
 
-  @prop({
-    required: true,
-  })
+  @prop({default: ''})
   public previewPath!: string;
 
   @prop({
@@ -114,7 +112,7 @@ export class OfferEntity extends defaultClasses.TimeStamps  {
     enum: Accommodation,
     default: []
   })
-  public accommodations!: Accommodation[];////
+  public accommodations!: Accommodation[];
 
 
   @prop({

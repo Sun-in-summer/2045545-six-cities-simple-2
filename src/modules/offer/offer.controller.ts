@@ -8,7 +8,7 @@ import { OfferServiceInterface } from './offer-service.interface.js';
 import OfferResponse from './response/offer.response.js';
 import { fillDTO } from '../../utils/common.js';
 import CreateOfferDto from './dto/create-offer.dto.js';
-import UpdateOfferDto from './dto/update-offer.dto.js';
+
 import * as core from 'express-serve-static-core';
 import {CommentServiceInterface} from '../comment/comment-service.interface.js';
 import CommentResponse from '../comment/response/comment.response.js';
@@ -16,6 +16,10 @@ import { ValidateObjectIdMiddleware} from '../../common/middlewares/validate-obj
 import { PrivateRouteMiddleware } from '../../common/middlewares/private-route.middleware.js';
 import { ValidateDtoMiddleware } from '../../common/middlewares/validate-dto.middleware.js';
 import { DocumentExistsMiddleware } from '../../common/middlewares/document-exists.middleware.js';
+import {ConfigInterface} from '../../common/config/config.interface.js';
+import {UploadFileMiddleware} from '../../common/middlewares/upload-file.middleware.js';
+import UploadImageResponse from './response/upload-image.response.js';
+import UpdateOfferDto from './dto/update-offer.dto.js';
 
 type ParamsGetOffer = {
   offerId: string;
@@ -26,10 +30,11 @@ type ParamsGetOffer = {
 export default class OfferController extends Controller {
   constructor(
     @inject(Component.LoggerInterface) logger: LoggerInterface,
+    @inject(Component.ConfigInterface) configService: ConfigInterface,
     @inject(Component.OfferServiceInterface) private readonly offerService: OfferServiceInterface,
     @inject(Component.CommentServiceInterface) private readonly commentService: CommentServiceInterface
   ) {
-    super(logger);
+    super(logger, configService);
 
     this.logger.info('Register routes for OfferController...');
 
@@ -71,10 +76,24 @@ export default class OfferController extends Controller {
         new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
       ]
     });
-    this.addRoute({path: '/:offerId/comments', method: HttpMethod.Get, handler: this.getComments, middlewares: [
-      new ValidateObjectIdMiddleware('offerId'),
-      new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
-    ]});
+    this.addRoute({
+      path: '/:offerId/comments',
+      method: HttpMethod.Get,
+      handler: this.getComments,
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId'),
+      ]});
+    this.addRoute({
+      path: '/:offerId/image',
+      method: HttpMethod.Post,
+      handler: this.uploadImage,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateObjectIdMiddleware('offerId'),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'previewPath'),
+      ]
+    });
   }
 
   public async index(_req: Request, res: Response): Promise<void> {
@@ -121,5 +140,12 @@ export default class OfferController extends Controller {
     res: Response): Promise<void> {
     const comments = await this.commentService.findByOfferId(params.offerId);
     this.ok(res, fillDTO(CommentResponse, comments));
+  }
+
+  public async uploadImage(req: Request<core.ParamsDictionary | ParamsGetOffer>, res: Response) {
+    const {offerId} = req.params;
+    const updateDto =  {previewPath: req.file?.filename };
+    await this.offerService.updateById(offerId, updateDto);
+    this.created(res, fillDTO(UploadImageResponse, {updateDto}));
   }
 }
